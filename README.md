@@ -6,8 +6,8 @@ This adapter, originally part of the Birdie codebase, allows for the use of JAX 
 
 The system is divided into three main components:
 
-1. **API.py**
-   - You just need to create two functions: one that loads your model and returns the logits from the vocabulary head. A second that supports tokenization from a string or list of strings. This is more clearly shown in the file itself.
+1. **api.py**
+   - You just need to fill-in two functions: prepares a function that returns the logits from the vocabulary head in a 3D (batch, length, dims) shape. A second function that supports tokenization from a string or list of strings. This is more clearly explained in the file itself.
 1. **Server**:
     - Deserializes the request.
     - Loads the requested model.
