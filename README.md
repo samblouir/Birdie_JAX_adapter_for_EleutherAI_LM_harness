@@ -47,32 +47,39 @@ It listens for requests from the EleutherLM Harness and handles model loading an
 ### Starting Tasks
 Here is a real example of how I used this harness in Birdie
 ```bash
-    # Comma-seperated list of tasks to run
-    tasks="boolq"
-    # Index of the GPU(s) to use, on your machine
-    gpu_id=0
-    # Number of fewshot examples to use (Note: The Eleuther harness doesn't support this for all tasks)
-    num_fewshot=3
-    results_dir="/home/sam/birdie_eleuther_results"
-    cache_dir="/home/sam/birdie_eleuther_cache"
-	model_tag="attention_trained_using_birdie_14B"
+
+## Variables to set:
+# Comma-seperated list of tasks to run
+tasks="boolq"
+model_tag="attention_trained_using_birdie_14B" # This is handled in API.py, which you must update.
+kwargs="port=5000,max_sequence_length=65536" # comma-seperated values that you can pass in. These will make it all the way to load_model() and load_tokenizer() in API.py!
+
+# Index of the GPU(s) to use, on your machine
+gpu_id=0
+
+# Number of fewshot examples to use (Note: The Eleuther harness doesn't support this for all tasks, and may not tell you that few shot examples weren't added...)
+num_fewshot=0
+results_dir="/home/sam/birdie_eleuther_results"
+cache_dir="/home/sam/birdie_eleuther_cache"
+## End of variables to set
 
 
-    # Json output path. This will save your results to a json file
-    # NOTE: If you do too many tasks at once, this may create a file that is too long for your OS!
-    output_path=${results_dir}/${tasks}_fewshot:${num_fewshot}.json
+# Json output path. This will save your results to a json file
+# NOTE: If you do too many tasks at once, this may create a file that is too long for your OS!
+output_path=${results_dir}/${tasks}_fewshot:${num_fewshot}.json
 
-    # Ensures the results directory exists
-    mkdir -p ${results_dir}/${model_tag} 
-     # Place your model args using comma-seperated values
-	model_args="--model_args model_tag=${model_tag},port=5000" 
-	cache_args="--device cuda:${gpu_id} --use_cache ${cache_dir} 
-	fewshot_args="--num_fewshot ${num_fewshot}"
+# Ensures the results directory exists
+mkdir -p ${results_dir}/${model_tag}
 
-    # Runs it! This will start Eleuther's harness, and thanks to your custom model, the requests will be forwarded to our server running in host_main.py, which will load the model, tokenize the inputs, and return the final losses to the harness.
-	python /home/sam/lm-evaluation-harness/lm_eval/__main__.py --model birdie ${model_args} ${fewshot_args} --tasks ${tasks}  --output_path ${output_args} ${cache_args}
+# Place your model args using comma-seperated values
+model_args="--model_args model_tag=${model_tag}" 
+cache_args="--device cuda:${gpu_id} --use_cache ${cache_dir} 
+fewshot_args="--num_fewshot ${num_fewshot}"
 
-    # That's all!
+# Runs it! This will start Eleuther's harness, and thanks to your custom model, the requests will be forwarded to our server running in host_main.py, which will load the model, tokenize the inputs, and return the final losses to the harness.
+python /home/sam/lm-evaluation-harness/lm_eval/__main__.py --model birdie ${model_args} ${fewshot_args} --tasks ${tasks}  --output_path ${output_args} ${cache_args}
+
+# That's all!
 ```
 
 
