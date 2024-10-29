@@ -71,7 +71,7 @@ Here is a real example of how I used this harness in Birdie
 ## Variables to set:
 # Comma-seperated list of tasks to run
 tasks="boolq"
-model_tag="attention_trained_using_birdie_14B" # This is handled in API.py, which you must update.
+model_tag="attention_trained_using_birdie_14B" # This is passed to API.py, which you must update to load in your desired model.
 kwargs="port=5000,max_sequence_length=65536" # comma-seperated values that you can pass in. These will make it all the way to load_model() and load_tokenizer() in API.py!
 
 # Index of the GPU(s) to use, on your machine
