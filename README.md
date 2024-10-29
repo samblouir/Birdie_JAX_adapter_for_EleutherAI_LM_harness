@@ -28,12 +28,32 @@ The system is divided into three main components:
 
 ## Usage
 
-### Setting Up
+### Installation
 
-- Clone the EleutherAI LM Harness repository:
-  ```bash
-  git clone https://github.com/EleutherAI/lm-evaluation-harness.git
-  ```
+- [Download the EleutherAI LM evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness)
+```bash
+git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+pip install -e .
+```
+
+- (Probably) re-install JAX, since Torch may have changed your NVIDIA packages...:
+
+[Please see JAX's installation instructions on their Github:](https://github.com/jax-ml/jax?tab=readme-ov-file#installation)
+| Platform        | Instructions                                                                                                    |
+|-----------------|-----------------------------------------------------------------------------------------------------------------|
+| CPU             | `pip install -U jax`                                                                                            |
+| NVIDIA GPU      | `pip install -U "jax[cuda12]"`                                                                                  |
+| Google TPU      | `pip install -U "jax[tpu]" -f https://storage.googleapis.com/jax-releases/libtpu_releases.html`                 |
+| AMD GPU (Linux) | Use [Docker](https://hub.docker.com/r/rocm/jax-community/tags), [pre-built wheels](https://github.com/ROCm/jax/releases), or [build from source](https://jax.readthedocs.io/en/latest/developer.html#additional-notes-for-building-a-rocm-jaxlib-for-amd-gpus). |
+| Mac GPU         | Follow [Apple's instructions](https://developer.apple.com/metal/jax/).                                          |
+
+See [the documentation](https://jax.readthedocs.io/en/latest/installation.html)
+for information on alternative installation strategies. These include compiling
+from source, installing with Docker, using other versions of CUDA, a
+community-supported conda build, and answers to some frequently-asked questions.
+
+
 - Move `birdie.py` to `lm-evaluation-harness/lm_eval/models/`.
 
 ### Running the Server
