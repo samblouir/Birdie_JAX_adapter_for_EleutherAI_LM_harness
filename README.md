@@ -1,6 +1,6 @@
 # JAX Adapter for EleutherAI LM Harness
 
-This adapter, originally part of the Birdie codebase, allows for the use of JAX (and other framework) models with the EleutherAI LM Harness. It is designed originally for max-likelihood/multiple-choice tasks, such as ARC and MMLU, but will be extended to support generative tasks.
+This adapter, originally part of [Birdie's codebase](https://github.com/samblouir/birdie), allows for the use of JAX (and other framework) models with the EleutherAI LM Harness. It is designed originally for max-likelihood/multiple-choice tasks, such as ARC and MMLU, but will be extended to support generative tasks.
 
 ## Overview
 
